@@ -1,1 +1,26 @@
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
 
+
+h1 {
+    font-style: italic;
+    text-align: center;
+}
+
+.grid-container {
+    display: grid;
+width: 450px;
+height: 450px;
+grid-template-columns: auto auto auto;
+grid-template-rows: auto auto auto;
+gap: 5px;
+border: black solid 2px;
+margin: auto;
+}
+
+.square {
+    border: black solid 1px;
+}
