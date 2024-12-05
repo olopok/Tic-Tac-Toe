@@ -36,7 +36,7 @@ const GameController = (() => {
     const checkWinner = () => {
 
         function checkMarker(mark) {
-          return mark == 'X';
+          return mark == 'X' || mark == 'O';
         };
 
         const combinations = [
