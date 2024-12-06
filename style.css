@@ -19,8 +19,13 @@ grid-template-rows: auto auto auto;
 gap: 5px;
 border: black solid 2px;
 margin: auto;
+padding: 5px;
 }
 
 .square {
     border: black solid 1px;
+}
+
+.square:hover {
+    border: green solid 2px;
 }
