@@ -41,6 +41,10 @@ const GameController = (() => {
 
         function checkMarkerO(mark) {
             return mark == "O";
+        };
+
+        function checkTie(mark) {
+            return mark !== "#";
         }
 
         const combinations = [
@@ -54,19 +58,7 @@ const GameController = (() => {
             [Gameboard.board[2], Gameboard.board[4], Gameboard.board[6]]
         ];
 
-        console.log(combinations);
 
-        // for (i = 0; i <= combinations.length; i++) {
-        // for (j = 0; j <= combinations[1].length; j++) {
-        //     if (combinations[j].every(checkMarker)) {
-        //         if (playerTurn == Gameboard.Player1) {
-        //             console.log("O win");
-        //         } else console.log("X Win");
-        // } else {
-        //     if (Gameboard.board.every(checkTie)) {console.log("Game is tie");};
-        // };
-
-        // };
         combinations.forEach((combination) => {
             if (combination.every(checkMarkerX)) {
                 if (playerTurn == Gameboard.Player1) {
@@ -76,10 +68,12 @@ const GameController = (() => {
                 if (playerTurn == Gameboard.Player1) {
                     console.log("O win");
                 } else console.log("X win");
+            } else if (Gameboard.board.every(checkTie)){
+                
+                console.log("Game tie");
             };
         });
 
-        // };
     };
 
     const validity = (index) => {
