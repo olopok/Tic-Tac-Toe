@@ -24,8 +24,7 @@ const Gameboard = (() => {
 const GameController = (() => {
 
     let playerTurn = Gameboard.Player1;
-
-    Gameboard.board[1] = "O";
+    let winner = false
 
     const setMarker = (index) => {
         Gameboard.board[index] = playerTurn.marker;
@@ -34,7 +33,6 @@ const GameController = (() => {
     const changePlayer = () => { if (playerTurn !== Gameboard.Player1 ? playerTurn = Gameboard.Player1 : playerTurn = Gameboard.Player2); };
 
     const checkWinner = () => {
-
         function checkMarkerX(mark) {
             return mark == 'X';
         };
@@ -58,23 +56,38 @@ const GameController = (() => {
             [Gameboard.board[2], Gameboard.board[4], Gameboard.board[6]]
         ];
 
-
         combinations.forEach((combination) => {
             if (combination.every(checkMarkerX)) {
                 if (playerTurn == Gameboard.Player1) {
                     console.log("O win");
-                } else console.log("X win");
+                    winner = true;
+                    // stopGame();
+                } else {console.log("X win");
+                    winner = true;
+                    // stopGame();
+                };
             } else if (combination.every(checkMarkerO)) {
                 if (playerTurn == Gameboard.Player1) {
                     console.log("O win");
-                } else console.log("X win");
-            } else if (Gameboard.board.every(checkTie)){
-                
-                console.log("Game tie");
-            };
+                    winner = true;
+                    // stopGame();
+                } else {console.log("X win");
+                    winner = true;
+                    // stopGame();
+                };
+            } else if (Gameboard.board.every(checkTie)) 
+                {console.log("Game tie");
+                    winner = "Tie";
+                    // stopGame();
+                }
         });
-
     };
+
+    const stopGame = () => {
+        if (winner !== false) {
+            alert("Game ended")
+        }
+    }
 
     const validity = (index) => {
         if (Gameboard.board[index] !== "#") {
@@ -86,11 +99,14 @@ const GameController = (() => {
             console.log(Gameboard.board);
             checkWinner();
             getMarker();
-        }
-
+        };
     };
 
     const getMarker = () => {
+        if (winner !== false){
+            stopGame();
+        }
+
         const index = prompt("Choose position");
         validity(index);
     };
@@ -98,12 +114,10 @@ const GameController = (() => {
     return {
         getMarker
     };
-
 })();
 
 GameController.getMarker();
 
-console.log(Gameboard.board)
 
 
 
