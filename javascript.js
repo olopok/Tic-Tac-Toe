@@ -1,7 +1,21 @@
+const DOMLogic = (() => {
+    return {
+        squareMarker: document.querySelectorAll('.square').forEach((el) => {
+            el.addEventListener('click', (e) => {
+                let id = e.target.id;
+                console.log(id);
+                GameController.getMarker(id);
+                // return id;
+            });
+        })
+    }
+
+})();
+
 const Gameboard = (() => {
     const board = [];
     for (let i = 0; i < 9; i++) {
-        board[i] = "#";
+        board[i] = "";
     };
 
     const Player1 = {
@@ -42,7 +56,7 @@ const GameController = (() => {
         };
 
         function checkTie(mark) {
-            return mark !== "#";
+            return mark !== "";
         }
 
         const combinations = [
@@ -62,7 +76,8 @@ const GameController = (() => {
                     console.log("O win");
                     winner = true;
                     // stopGame();
-                } else {console.log("X win");
+                } else {
+                    console.log("X win");
                     winner = true;
                     // stopGame();
                 };
@@ -71,15 +86,16 @@ const GameController = (() => {
                     console.log("O win");
                     winner = true;
                     // stopGame();
-                } else {console.log("X win");
+                } else {
+                    console.log("X win");
                     winner = true;
                     // stopGame();
                 };
-            } else if (Gameboard.board.every(checkTie)) 
-                {console.log("Game tie");
-                    winner = "Tie";
-                    // stopGame();
-                }
+            } else if (Gameboard.board.every(checkTie)) {
+                console.log("Game tie");
+                winner = "Tie";
+                // stopGame();
+            }
         });
     };
 
@@ -90,24 +106,33 @@ const GameController = (() => {
     }
 
     const validity = (index) => {
-        if (Gameboard.board[index] !== "#") {
+        if (Gameboard.board[index] !== "") {
             alert("invalid position");
-            getMarker();
+            // getMarker();
         } else {
             setMarker(index);
             changePlayer();
             console.log(Gameboard.board);
             checkWinner();
-            getMarker();
+            // getMarker();
         };
     };
 
-    const getMarker = () => {
-        if (winner !== false){
+    const getMarker = (mark) => {
+        if (winner !== false) {
             stopGame();
         }
 
-        const index = prompt("Choose position");
+        let index = mark;
+        // function getindex() {DOMLogic.squareMarker.forEach((el) => {
+        //     el.addEventListener('click', (e) => {
+        //         let id = e.target.id;
+        //         console.log(id);
+        //         // return id;
+        //     });
+        // })};
+            // console.log(index)
+
         validity(index);
     };
 
@@ -116,8 +141,7 @@ const GameController = (() => {
     };
 })();
 
-GameController.getMarker();
-
+// GameController.getMarker()
 
 
 
