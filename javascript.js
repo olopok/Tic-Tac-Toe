@@ -5,9 +5,10 @@ const DOMLogic = (() => {
                 let id = e.target.id;
                 console.log(id);
                 GameController.getMarker(id);
-                // return id;
             });
-        })
+        }),
+
+        // displayMarker: 
     }
 
 })();
@@ -42,6 +43,8 @@ const GameController = (() => {
 
     const setMarker = (index) => {
         Gameboard.board[index] = playerTurn.marker;
+        const square = document.getElementById(`${index}`);
+        square.textContent = playerTurn.marker;
     };
 
     const changePlayer = () => { if (playerTurn !== Gameboard.Player1 ? playerTurn = Gameboard.Player1 : playerTurn = Gameboard.Player2); };
@@ -108,13 +111,11 @@ const GameController = (() => {
     const validity = (index) => {
         if (Gameboard.board[index] !== "") {
             alert("invalid position");
-            // getMarker();
         } else {
             setMarker(index);
             changePlayer();
             console.log(Gameboard.board);
             checkWinner();
-            // getMarker();
         };
     };
 
@@ -122,17 +123,7 @@ const GameController = (() => {
         if (winner !== false) {
             stopGame();
         }
-
         let index = mark;
-        // function getindex() {DOMLogic.squareMarker.forEach((el) => {
-        //     el.addEventListener('click', (e) => {
-        //         let id = e.target.id;
-        //         console.log(id);
-        //         // return id;
-        //     });
-        // })};
-            // console.log(index)
-
         validity(index);
     };
 
@@ -140,8 +131,3 @@ const GameController = (() => {
         getMarker
     };
 })();
-
-// GameController.getMarker()
-
-
-
