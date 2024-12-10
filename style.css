@@ -12,20 +12,30 @@ h1 {
 
 .grid-container {
     display: grid;
-width: 450px;
-height: 450px;
-grid-template-columns: auto auto auto;
-grid-template-rows: auto auto auto;
-gap: 5px;
-border: black solid 2px;
-margin: auto;
-padding: 5px;
+    width: fit-content;
+    height: fit-content;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    gap: 5px;
+    border: black solid 2px;
+    margin: auto;
+    padding: 5px;
 }
 
 .square {
+    display: flex;
+    width: 150px;
+    height: 150px;
     border: black solid 1px;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
 }
 
 .square:hover {
     border: green solid 2px;
+}
+
+.inattive:hover {
+    border: red solid 2px;
 }

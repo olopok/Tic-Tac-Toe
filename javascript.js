@@ -1,16 +1,31 @@
 const DOMLogic = (() => {
     return {
         squareMarker: document.querySelectorAll('.square').forEach((el) => {
+            const controller = new AbortController();
             el.addEventListener('click', (e) => {
                 let id = e.target.id;
-                console.log(id);
                 GameController.getMarker(id);
-            });
+                controller.abort();
+            }, { signal: controller.signal });
         }),
 
-        // displayMarker: 
-    }
+        makeInattive: function (e) {
+            document.getElementById(`${e}`).classList.add('inattive');
 
+        },
+
+        cleanBoard: function () {
+            for (let x in Gameboard.board) {
+                Gameboard.board[x] = "";
+                const square = document.getElementById(x);
+                square.textContent = Gameboard.board[x];
+                square.classList.remove('inattive');
+
+            }
+            const container = document.querySelector('.grid-container');
+            container.replaceWith(container.cloneNode(true));
+        },
+    }
 })();
 
 const Gameboard = (() => {
@@ -39,17 +54,20 @@ const Gameboard = (() => {
 const GameController = (() => {
 
     let playerTurn = Gameboard.Player1;
-    let winner = false
+    let winner = false;
 
     const setMarker = (index) => {
         Gameboard.board[index] = playerTurn.marker;
         const square = document.getElementById(`${index}`);
         square.textContent = playerTurn.marker;
+        DOMLogic.makeInattive(index);
+        // stopGame();
     };
 
     const changePlayer = () => { if (playerTurn !== Gameboard.Player1 ? playerTurn = Gameboard.Player1 : playerTurn = Gameboard.Player2); };
 
     const checkWinner = () => {
+
         function checkMarkerX(mark) {
             return mark == 'X';
         };
@@ -75,59 +93,47 @@ const GameController = (() => {
 
         combinations.forEach((combination) => {
             if (combination.every(checkMarkerX)) {
-                if (playerTurn == Gameboard.Player1) {
-                    console.log("O win");
-                    winner = true;
-                    // stopGame();
-                } else {
-                    console.log("X win");
-                    winner = true;
-                    // stopGame();
-                };
-            } else if (combination.every(checkMarkerO)) {
-                if (playerTurn == Gameboard.Player1) {
-                    console.log("O win");
-                    winner = true;
-                    // stopGame();
-                } else {
-                    console.log("X win");
-                    winner = true;
-                    // stopGame();
-                };
-            } else if (Gameboard.board.every(checkTie)) {
-                console.log("Game tie");
-                winner = "Tie";
-                // stopGame();
+                console.log(playerTurn.namePlayer1);
+                winner = true;
             }
-        });
+            else if (combination.every(checkMarkerO)) {
+                console.log(playerTurn.namePlayer2);
+                winner = true;
+            }
+            else if (Gameboard.board.every(checkTie)) {
+                console.log("Game tie");
+                winner = true;
+            }
+        }
+        );
+        changePlayer();
     };
 
     const stopGame = () => {
-        if (winner !== false) {
-            alert("Game ended")
-        }
-    }
+
+        DOMLogic.cleanBoard();
+    };
 
     const validity = (index) => {
         if (Gameboard.board[index] !== "") {
             alert("invalid position");
         } else {
-            setMarker(index);
-            changePlayer();
             console.log(Gameboard.board);
+            setMarker(index);
             checkWinner();
         };
     };
 
     const getMarker = (mark) => {
-        if (winner !== false) {
-            stopGame();
-        }
-        let index = mark;
-        validity(index);
+        if (winner) {
+        stopGame();
+        } else
+        validity(mark);
     };
 
     return {
-        getMarker
+        getMarker,
+        changePlayer
+
     };
 })();
