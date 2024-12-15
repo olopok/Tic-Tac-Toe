@@ -11,7 +11,6 @@ const DOMLogic = (() => {
 
         makeInattive: function (e) {
             document.getElementById(`${e}`).classList.add('inattive');
-
         },
 
         cleanBoard: function () {
@@ -20,10 +19,7 @@ const DOMLogic = (() => {
                 const square = document.getElementById(x);
                 square.textContent = Gameboard.board[x];
                 square.classList.remove('inattive');
-
             }
-            const container = document.querySelector('.grid-container');
-            container.replaceWith(container.cloneNode(true));
         },
     }
 })();
@@ -35,12 +31,12 @@ const Gameboard = (() => {
     };
 
     const Player1 = {
-        namePlayer1: "Player 1",
+        name: "Player 1",
         marker: "X"
     };
 
     const Player2 = {
-        namePlayer2: "PLayer 2",
+        name: "PLayer 2",
         marker: "O"
     };
 
@@ -52,32 +48,25 @@ const Gameboard = (() => {
 })();
 
 const GameController = (() => {
-
     let playerTurn = Gameboard.Player1;
-    let winner = false;
+    let winner;
 
     const setMarker = (index) => {
         Gameboard.board[index] = playerTurn.marker;
         const square = document.getElementById(`${index}`);
         square.textContent = playerTurn.marker;
         DOMLogic.makeInattive(index);
-        // stopGame();
     };
 
     const changePlayer = () => { if (playerTurn !== Gameboard.Player1 ? playerTurn = Gameboard.Player1 : playerTurn = Gameboard.Player2); };
 
-    const checkWinner = () => {
-
+    const checkWinner = (() => {
         function checkMarkerX(mark) {
-            return mark == 'X';
+            return mark == playerTurn.marker;
         };
 
-        function checkMarkerO(mark) {
-            return mark == "O";
-        };
-
-        function checkTie(mark) {
-            return mark !== "";
+        function checkTie(val) {
+            return val !== "";
         }
 
         const combinations = [
@@ -93,47 +82,44 @@ const GameController = (() => {
 
         combinations.forEach((combination) => {
             if (combination.every(checkMarkerX)) {
-                console.log(playerTurn.namePlayer1);
+                console.log(playerTurn.name);
                 winner = true;
-            }
-            else if (combination.every(checkMarkerO)) {
-                console.log(playerTurn.namePlayer2);
-                winner = true;
-            }
-            else if (Gameboard.board.every(checkTie)) {
-                console.log("Game tie");
-                winner = true;
+                alert(`Game Over ${playerTurn.name} win`);
+                stopGame()
             }
         }
         );
-        changePlayer();
-    };
+
+        const newComb = combinations.flat();
+        if (!newComb.includes("") && !winner) {
+            if(newComb.every(checkTie)) {
+                console.log('Tie');
+                stopGame();
+            }
+        }
+    });
 
     const stopGame = () => {
-
-        DOMLogic.cleanBoard();
+        const container = document.querySelector('.grid-container');
+        container.replaceWith(container.cloneNode(true));
     };
 
     const validity = (index) => {
         if (Gameboard.board[index] !== "") {
             alert("invalid position");
         } else {
-            console.log(Gameboard.board);
             setMarker(index);
+            console.log(Gameboard.board);
             checkWinner();
+            changePlayer();
         };
     };
 
     const getMarker = (mark) => {
-        if (winner) {
-        stopGame();
-        } else
         validity(mark);
     };
 
     return {
         getMarker,
-        changePlayer
-
     };
 })();
