@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe</title>
     <link href="style.css" type="text/css" rel="stylesheet">
-
+    <link href="modal.css" type="text/css" rel="stylesheet">
 </head>
 <body>
     <h1>Tic-Tac-Toe Game</h1>
@@ -20,6 +20,23 @@
         <div class="square" id="7"></div>
         <div class="square" id="8"></div>
     </div>
+    <dialog>
+        <form autocomplete="off" method="dialog">
+            <ul>
+                <li>
+                    <label for="Player1">Player 1</label>
+                    <input type="text" name="Player1" id="Player1" required>
+                </li>
+                <li>
+                    <label for="Player2">Player 2</label>
+                    <input type="text" name="Player2" id="Player2" required>
+                </li>
+                <div class="frm-btn-container">
+                    <button class="button frm-btn" id="submit" type="submit">START</button>
+                </div>
+            </ul>
+        </form>
+    </dialog>
 
      <script src="javascript.js"></script>
 </body>
