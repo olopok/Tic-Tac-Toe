@@ -21,6 +21,13 @@ const DOMLogic = (() => {
                 square.classList.remove('inattive');
             }
         },
+
+        init: function () {
+            const dialog = document.querySelector('dialog');
+            addEventListener('load', () => {
+                dialog.showModal();
+            })
+        }
     }
 })();
 
@@ -50,6 +57,14 @@ const Gameboard = (() => {
 const GameController = (() => {
     let playerTurn = Gameboard.Player1;
     let winner;
+    const startBtn = document.querySelector('#start');
+
+    const startGame = () => {
+        const dialog = document.querySelector('dialog');
+        dialog.close();
+    };
+
+    startBtn.addEventListener('click', startGame);
 
     const setMarker = (index) => {
         Gameboard.board[index] = playerTurn.marker;
@@ -92,8 +107,10 @@ const GameController = (() => {
 
         const newComb = combinations.flat();
         if (!newComb.includes("") && !winner) {
-            if(newComb.every(checkTie)) {
+            if (newComb.every(checkTie)) {
                 console.log('Tie');
+                alert('Game over round is tie');
+
                 stopGame();
             }
         }
@@ -123,3 +140,5 @@ const GameController = (() => {
         getMarker,
     };
 })();
+
+DOMLogic.init();

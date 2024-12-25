@@ -4,6 +4,10 @@
     margin: 0px;
 }
 
+main {
+    display: flex;
+    justify-content: space-evenly;
+}
 
 h1 {
     font-style: italic;
@@ -18,7 +22,7 @@ h1 {
     grid-template-rows: auto auto auto;
     gap: 5px;
     border: black solid 2px;
-    margin: auto;
+    /* margin: auto; */
     padding: 5px;
 }
 
@@ -38,4 +42,20 @@ h1 {
 
 .inattive:hover {
     border: red solid 2px;
+}
+
+
+ul,
+li {
+    display: flex;
+    flex-direction: column;
+    /* justify-items: center; */
+    align-content: space-between;
+    padding: 0.5em;
+}
+
+label {
+    font-size: small;
+    font-weight: bold;
+    font-style: italic;
 }

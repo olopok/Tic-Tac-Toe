@@ -9,6 +9,7 @@
 </head>
 <body>
     <h1>Tic-Tac-Toe Game</h1>
+    <main>
     <div class="grid-container">
         <div class="square" id="0"></div>
         <div class="square" id="1"></div>
@@ -20,24 +21,24 @@
         <div class="square" id="7"></div>
         <div class="square" id="8"></div>
     </div>
-    <dialog>
-        <form autocomplete="off" method="dialog">
-            <ul>
-                <li>
-                    <label for="Player1">Player 1</label>
-                    <input type="text" name="Player1" id="Player1" required>
-                </li>
-                <li>
-                    <label for="Player2">Player 2</label>
-                    <input type="text" name="Player2" id="Player2" required>
-                </li>
-                <div class="frm-btn-container">
-                    <button class="button frm-btn" id="submit" type="submit">START</button>
-                </div>
-            </ul>
-        </form>
-    </dialog>
-
+        <dialog>
+            <form method="dialog" autocomplete="off">
+                <ul>
+                    <li>
+                        <label for="Player1">Player 1</label>
+                        <input type="text" name="Player1" id="Player1 (X)" required>
+                    </li>
+                    <li>
+                        <label for="Player2">Player 2</label>
+                        <input type="text" name="Player2" id="Player2 (O)" required>
+                    </li>
+                    <div class="frm-btn-container">
+                        <button class="button frm-btn" id="start" type="button">START</button>
+                    </div>
+                </ul>
+            </form>
+        </dialog>
+</main>
      <script src="javascript.js"></script>
 </body>
 </html>
