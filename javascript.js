@@ -85,6 +85,7 @@ const GameController = (() => {
         DOMLogic.setPlayersName();
         dialog.close();
         DOMLogic.squareMarker();
+        DOMLogic.score();
     };
 
     startBtn.addEventListener('click', startGame);
