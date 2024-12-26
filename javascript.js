@@ -1,13 +1,15 @@
 const DOMLogic = (() => {
     return {
-        squareMarker: document.querySelectorAll('.square').forEach((el) => {
-            const controller = new AbortController();
-            el.addEventListener('click', (e) => {
-                let id = e.target.id;
-                GameController.getMarker(id);
-                controller.abort();
-            }, { signal: controller.signal });
-        }),
+        squareMarker: function () {
+            document.querySelectorAll('.square').forEach((el) => {
+                const controller = new AbortController();
+                el.addEventListener('click', (e) => {
+                    let id = e.target.id;
+                    GameController.getMarker(id);
+                    controller.abort();
+                }, { signal: controller.signal });
+            })
+        },
 
         makeInattive: function (e) {
             document.getElementById(`${e}`).classList.add('inattive');
@@ -29,11 +31,18 @@ const DOMLogic = (() => {
             })
         },
 
-        scoreDisplay: function () {
+        score: function () {
             const score1 = document.getElementById('mark-x');
-            score1.textContent = Gameboard.Player1.score;
+            score1.textContent = ` Player ${Gameboard.Player1.name} score ${Gameboard.Player1.score}`;
             const score2 = document.getElementById('mark-O');
-            score2.textContent = Gameboard.Player2.score;
+            score2.textContent = ` Player ${Gameboard.Player2.name} score ${Gameboard.Player2.score}`;
+        },
+
+        setPlayersName: function () {
+            const name1 = document.getElementById('Player1').value;
+            const name2 = document.getElementById('Player2').value;
+            Gameboard.Player1.name = name1;
+            Gameboard.Player2.name = name2;
         }
 
     }
@@ -46,13 +55,13 @@ const Gameboard = (() => {
     };
 
     const Player1 = {
-        name: "Player 1",
+        name: "",
         marker: "X",
         score: 0
     };
 
     const Player2 = {
-        name: "PLayer 2",
+        name: "",
         marker: "O",
         score: 0
     };
@@ -68,13 +77,26 @@ const GameController = (() => {
     let playerTurn = Gameboard.Player1;
     let winner;
     const startBtn = document.querySelector('#start');
+    const reset = document.querySelector('.reset');
+    const reload = document.querySelector('.reload');
 
     const startGame = () => {
         const dialog = document.querySelector('dialog');
+        DOMLogic.setPlayersName();
         dialog.close();
+        DOMLogic.squareMarker();
     };
 
     startBtn.addEventListener('click', startGame);
+
+    reset.addEventListener('click', () => {
+        DOMLogic.cleanBoard();
+        DOMLogic.squareMarker();
+    });
+
+    reload.addEventListener('click', () => {
+        location.reload();
+    })
 
     const setMarker = (index) => {
         Gameboard.board[index] = playerTurn.marker;
@@ -112,7 +134,7 @@ const GameController = (() => {
                 alert(`Game Over ${playerTurn.name} win`);
                 playerTurn.name === Gameboard.Player1.name ? Gameboard.Player1.score++ : Gameboard.Player2.score++;
                 console.log(Gameboard.Player1.score, Gameboard.Player2.score)
-                DOMLogic.scoreDisplay();
+                DOMLogic.score();
                 stopGame()
             }
         }
