@@ -33,9 +33,9 @@ const DOMLogic = (() => {
 
         score: function () {
             const score1 = document.getElementById('mark-x');
-            score1.textContent = ` Player ${Gameboard.Player1.name} score ${Gameboard.Player1.score}`;
+            score1.textContent = ` Player ${Gameboard.Player1.name}: ${Gameboard.Player1.score}`;
             const score2 = document.getElementById('mark-O');
-            score2.textContent = ` Player ${Gameboard.Player2.name} score ${Gameboard.Player2.score}`;
+            score2.textContent = ` Player ${Gameboard.Player2.name}: ${Gameboard.Player2.score}`;
         },
 
         setPlayersName: function () {
