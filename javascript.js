@@ -27,7 +27,15 @@ const DOMLogic = (() => {
             addEventListener('load', () => {
                 dialog.showModal();
             })
+        },
+
+        scoreDisplay: function () {
+            const score1 = document.getElementById('mark-x');
+            score1.textContent = Gameboard.Player1.score;
+            const score2 = document.getElementById('mark-O');
+            score2.textContent = Gameboard.Player2.score;
         }
+
     }
 })();
 
@@ -39,12 +47,14 @@ const Gameboard = (() => {
 
     const Player1 = {
         name: "Player 1",
-        marker: "X"
+        marker: "X",
+        score: 0
     };
 
     const Player2 = {
         name: "PLayer 2",
-        marker: "O"
+        marker: "O",
+        score: 0
     };
 
     return {
@@ -100,6 +110,9 @@ const GameController = (() => {
                 console.log(playerTurn.name);
                 winner = true;
                 alert(`Game Over ${playerTurn.name} win`);
+                playerTurn.name === Gameboard.Player1.name ? Gameboard.Player1.score++ : Gameboard.Player2.score++;
+                console.log(Gameboard.Player1.score, Gameboard.Player2.score)
+                DOMLogic.scoreDisplay();
                 stopGame()
             }
         }

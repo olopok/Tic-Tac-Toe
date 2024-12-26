@@ -44,6 +44,12 @@ h1 {
     border: red solid 2px;
 }
 
+.score {
+    border: 2px solid black;
+    width: fit-content;
+    height: fit-content;
+    margin-block: 5px;
+}
 
 ul,
 li {
