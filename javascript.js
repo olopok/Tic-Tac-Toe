@@ -93,6 +93,7 @@ const GameController = (() => {
     reset.addEventListener('click', () => {
         DOMLogic.cleanBoard();
         DOMLogic.squareMarker();
+        winner = false
     });
 
     reload.addEventListener('click', () => {
@@ -146,7 +147,6 @@ const GameController = (() => {
             if (newComb.every(checkTie)) {
                 console.log('Tie');
                 alert('Game over round is tie');
-
                 stopGame();
             }
         }
@@ -155,6 +155,7 @@ const GameController = (() => {
     const stopGame = () => {
         const container = document.querySelector('.grid-container');
         container.replaceWith(container.cloneNode(true));
+        console.log(winner)
     };
 
     const validity = (index) => {
@@ -173,7 +174,7 @@ const GameController = (() => {
     };
 
     return {
-        getMarker,
+        getMarker
     };
 })();
 
