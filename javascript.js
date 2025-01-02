@@ -155,7 +155,6 @@ const GameController = (() => {
     const stopGame = () => {
         const container = document.querySelector('.grid-container');
         container.replaceWith(container.cloneNode(true));
-        winner = "";
     };
 
     const validity = (index) => {
