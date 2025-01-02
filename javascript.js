@@ -91,7 +91,6 @@ const GameController = (() => {
     startBtn.addEventListener('click', startGame);
 
     reset.addEventListener('click', () => {
-        winner = null;
         DOMLogic.cleanBoard();
         DOMLogic.squareMarker();
     });
@@ -156,6 +155,7 @@ const GameController = (() => {
     const stopGame = () => {
         const container = document.querySelector('.grid-container');
         container.replaceWith(container.cloneNode(true));
+        winner = "";
     };
 
     const validity = (index) => {
