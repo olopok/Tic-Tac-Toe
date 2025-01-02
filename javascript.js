@@ -91,6 +91,7 @@ const GameController = (() => {
     startBtn.addEventListener('click', startGame);
 
     reset.addEventListener('click', () => {
+        winner = null;
         DOMLogic.cleanBoard();
         DOMLogic.squareMarker();
     });
